@@ -1,25 +1,111 @@
-
-
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <h2>Register Account </h2>
 
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="Nom" placeholder="Nom">
-      <input type="text" id="prenom" class="fadeIn second" name="Prenom" placeholder="Prenom">
-      <input type="text" id="user-name" class="fadeIn second" name="Nom d'utilisateur" placeholder="nom d'utilisateur">
-      <input type="password" id="password" class="fadeIn third" name="login" placeholder="Mots de passe">
-      <input type="password" id="confirm-password" class="fadeIn third" name="login" placeholder="Confirmez le mot de passe ">
-      <input type="text" id="adress" class="fadeIn second" name="adresse" placeholder="Adresse">
-      <input type="text" id="mail" class="fadeIn second" name="Email" placeholder="email">
-      <input type="text" id="ville" class="fadeIn third" name="ville" placeholder="Ville">
-<!--       <input type="text" id="Télephone" class="fadeIn third" name="tele" placeholder="telephone"> -->
-    <input type="tel" id="phone" name="phone" class="fadeIn third"  pattern="[0-9]{4}-[0-9]{6}" required placeholder="Télephone"> 
 
-      <input type="submit" class="fadeIn fourth" value="Validation">
-    </form>
+      <form [formGroup]="validateForm" (ngSubmit)="addUser()">
+
+        <div class="form-group">
+          <input type="text" formControlName="nom"
+                 id="login" class="form-control"
+                 name="Nom" placeholder="Nom"
+                 [ngClass]="{ 'is-invalid': submitted && form.nom.errors }"
+          >
+
+          <div *ngIf="submitted && form.nom.errors" class="invalid-feedback">
+            <div *ngIf="form.nom.errors.required">nom obligatoire</div>
+          </div>
+
+
+        </div>
+        <div class="form-group">
+          <input type="text" formControlName="prenom" id="prenom" name="Prenom" placeholder="Prenom"
+                 class="form-control"  [ngClass]="{ 'is-invalid': submitted && form.prenom.errors }"
+          >
+          <div *ngIf="submitted && form.prenom.errors" class="invalid-feedback">
+            <div *ngIf="form.prenom.errors.required"> prenom obligatoire</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="text" formControlName="email" id="mail" class="form-control" name="Email
+       " placeholder="email"  [ngClass]="{ 'is-invalid': submitted && form.email.errors }">
+          <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+            <div *ngIf="form.email.errors.required"> email obligatoire</div>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <input type="text" formControlName="login" id="user-name" class="form-control"
+                 name="Login"
+                 placeholder="nom d'utilisateur"
+                 [ngClass]="{ 'is-invalid': submitted && form.login.errors }">
+          <div *ngIf="submitted && form.login.errors" class="invalid-feedback">
+            <div *ngIf="form.login.errors.required">login obligatoire</div>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <input type="password" formControlName="password" id="password" class="form-control" name="password"
+                 placeholder="Mots de passe"  [ngClass]="{ 'is-invalid': submitted && form.password.errors }">
+
+          <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+            <div *ngIf="form.password.errors.required">mots de passe obligatoire</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+
+          <input type="password" formControlName="checkPassword" id="confirm-password" class="form-control" name="login"
+                 placeholder="Confirmez le mot de passe "  [ngClass]="{ 'is-invalid': submitted && form.checkPassword.errors }">
+          <div *ngIf="submitted && form.checkPassword.errors" class="invalid-feedback">
+            <div *ngIf="form.checkPassword.errors.required">confirmez le mot de passe obligatoire</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="text" formControlName="adresse" id="adress" class="form-control" name="adresse"
+                 placeholder="Adresse"  [ngClass]="{ 'is-invalid': submitted && form.adresse.errors }">
+
+          <div *ngIf="submitted && form.adresse.errors" class="invalid-feedback">
+            <div *ngIf="form.adresse.errors.required">adresse obligatoire</div>
+          </div>
+
+
+        </div>
+
+
+
+        <div class="form-group">
+          <input type="text" formControlName="ville" id="ville" class="form-control" name="ville"
+                 placeholder="Ville"  [ngClass]="{ 'is-invalid': submitted && form.ville.errors }">
+
+          <div *ngIf="submitted && form.ville.errors" class="invalid-feedback">
+            <div *ngIf="form.ville.errors.required">ville obligatoire</div>
+          </div>
+
+        </div>
+        <!-- <input type="text" id="Télephone" class="fadeIn third" name="tele" placeholder="telephone"> -->
+        <div class="form-group">
+          <input type="tel" formControlName="tel" id="phone" name="phone" class="form-control"  pattern="[0-9]{4}-[0-9]{6}"
+                 required placeholder="Télephone"  [ngClass]="{ 'is-invalid': submitted && form.tel.errors }">
+
+          <div *ngIf="submitted && form.tel.errors" class="invalid-feedback">
+            <div *ngIf="form.tel.errors.required">Telephone obligatoire</div>
+          </div>
+        </div>
+
+        <input type="submit" class="fadeIn fourth"
+               value="Validation">
+
+        <!--<button type="submit" class="fadeIn fourth"
+                  value="Validation" ></button> -->
+      </form>
+
+
     <!-- card.// -->
     <!-- Remind Passowrd -->
     <!--    <div id="formFooter">

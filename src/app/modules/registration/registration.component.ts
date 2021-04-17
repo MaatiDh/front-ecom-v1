@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-
+import {ClientService} from '../../commons/services/client.service';
+import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -8,19 +10,23 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+
   validateForm: FormGroup;
 
-  submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-  }
+  submitted = false;
+
 
   updateConfirmValidator(): void {
     /** wait for refresh value */
     Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
   }
+
+
+  constructor(private fb: FormBuilder,
+              private clientService:ClientService,
+              private readonly router: Router,
+              private toastr:ToastrService) {}
+
 
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
@@ -35,19 +41,51 @@ export class RegistrationComponent implements OnInit {
     e.preventDefault();
   }
 
-  constructor(private fb: FormBuilder) {}
 
+
+  get form() { return this.validateForm.controls; }
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      email: [null, [Validators.email, Validators.required]],
+      nom: [null, Validators.required],
+      prenom: [null, Validators.required],
+      login: [null,Validators.required],
       password: [null, [Validators.required]],
-      checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      nickname: [null, [Validators.required]],
-      phoneNumberPrefix: ['+86'],
-      phoneNumber: [null, [Validators.required]],
-      website: [null, [Validators.required]],
-      captcha: [null, [Validators.required]],
-      agree: [false]
+      checkPassword: [null, [Validators.required]],
+      adresse:[null,[Validators.required]],
+      email: [null, [Validators.email, Validators.required]],
+      ville: [null, [Validators.required]],
+      tel:[null, [Validators.required]],
     });
   }
+
+  addUser(){
+
+
+    this.submitted = true
+
+      console.log("validate form=========>",this.validateForm.valid)
+      console.log("from value",this.validateForm.value)
+      // const self = this;
+      this.clientService.registration(this.validateForm.value).subscribe(
+        result => {
+          console.log(result)
+          this.toastr.success(
+            "inscription avec succès",
+            "Success",
+            {
+              closeButton: true,
+              timeOut: 5000
+            })
+          this.router.navigate(['']);
+        }
+
+      )
+
+
+
+
+  }
+
+
+
 }

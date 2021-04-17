@@ -9,7 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from "ng-zorro-antd";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductsComponent } from './modules/products/products.component';
-
+import {HttpClientModule} from '@angular/common/http';
+import {ToastrModule} from 'ngx-toastr';
+import { ChangePasswordComponent } from './modules/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { ProductsComponent } from './modules/products/products.component';
     LoginComponent,
     HeaderComponent,
     RegistrationComponent,
-    ProductsComponent
+    ProductsComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,9 @@ import { ProductsComponent } from './modules/products/products.component';
     NgZorroAntdModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
