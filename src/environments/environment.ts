@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:8080/api',
-  TOKEN_NAME: 'TIP_APP_TOEKN',
+  TOKEN_NAME: 'ECOMMERCE',
   ROLE: 'ROLE',
 };
 

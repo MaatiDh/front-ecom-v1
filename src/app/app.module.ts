@@ -9,9 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from "ng-zorro-antd";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductsComponent } from './modules/products/products.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import { ChangePasswordComponent } from './modules/change-password/change-password.component';
+import {InterceptorProvider} from "./commons/interceptors/http-interceptor";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { ChangePasswordComponent } from './modules/change-password/change-passwo
     HttpClientModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
